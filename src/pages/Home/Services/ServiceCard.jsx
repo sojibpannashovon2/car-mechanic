@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ service }) => {
     return (
@@ -11,11 +12,15 @@ const ServiceCard = ({ service }) => {
                 </h2>
 
                 <div className="card-actions justify-between mt-6">
-                    <div className="badge badge-outline text-red-600 p-3">
+                    <div className="badge badge-outline text-red-600 p-6">
                         Price: {service.price}
                     </div>
-                    <div className="badge badge-outline p-3">
-                        <FaArrowRight></FaArrowRight>
+                    <div className="btn btn-outline p-3">
+                        <Link className='flex justify-center items-center  ' to={`/checkout/${service._id}`}><span>
+                            Book
+                        </span>
+                            <FaArrowRight></FaArrowRight>
+                        </Link>
                     </div>
                 </div>
             </div>
