@@ -19,9 +19,9 @@ const CheckOut = () => {
 
         const order = {
             customerName: name,
-            customerEmail: email,
+            email,
             OrderDate: date,
-            service_id: _id,
+
             img,
             price,
             service: title

@@ -9,7 +9,9 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Login/Register";
 import CheckOut from "../pages/checkout/CheckOut";
-import Bookservice from "../pages/BookService/Bookservice";
+import Booking from "../pages/bookings/Booking";
+import PrivateRoutes from "./PrivateRoutes";
+
 
 
 const router = createBrowserRouter([
@@ -35,12 +37,10 @@ const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`http://localhost:7000/services/${params.id}`)
 
             },
-            // {
-            //     path: 'book/:id',
-            //     element: <Bookservice></Bookservice>,
-            //     loader: ({ params }) => fetch(`http://localhost:7000/services/${params.id}`)
-
-            // },
+            {
+                path: 'bookings',
+                element: <PrivateRoutes><Booking></Booking></PrivateRoutes>,
+            },
         ]
     },
 ]);

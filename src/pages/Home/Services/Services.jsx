@@ -10,7 +10,7 @@ const Services = () => {
             .then(data => setServices(data))
     }, [])
 
-    console.log(services);
+    // console.log(services);
     return (
         <div>
             <h3 className='text-4xl text-rose-500 font-bold text-center'>Our Services</h3>

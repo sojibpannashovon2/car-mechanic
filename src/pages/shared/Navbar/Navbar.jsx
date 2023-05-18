@@ -40,7 +40,10 @@ const Navbar = () => {
                     <li>    <Link className='font-bold text-xl' to="/">Home</Link></li>
                     <li> <Link className='font-bold text-xl' to="/">About</Link></li>
                     {
-                        user?.email ? <li> <Link onClick={handleLogOut} className='font-bold btn btn-error text-white text-xl' >Log-Out</Link></li>
+                        user?.email ? <>
+                            <li><Link className='font-bold text-xl' to="/bookings">My bookings</Link></li>
+                            <li> <Link onClick={handleLogOut} className='font-bold btn btn-error text-white text-xl' >Log-Out</Link></li>
+                        </>
                             : <li> <Link className='font-bold text-xl' to="login">Log-In</Link></li>
                     }
 
