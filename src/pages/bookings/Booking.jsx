@@ -15,7 +15,12 @@ const Booking = () => {
     useEffect(() => {
         // if (!user?.email) return
         // user?.email
-        fetch(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                authorization: `Bearar:  ${localStorage.getItem("jwt-token")}`
+            }
+        })
             .then(res => res.json())
             .then(data => setBookings(data))
     }, [url])

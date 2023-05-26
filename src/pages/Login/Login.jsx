@@ -17,6 +17,22 @@ const Login = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                const jwtUser = {
+                    email: loggedUser.email,
+                }
+                fetch(`http://localhost:7000/jwt`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(jwtUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("JWT is Running Baby: ", data);
+                        // set in localstorage second best
+                        localStorage.setItem("jwt-token", data.token)
+                    })
             })
             .catch(error => {
                 console.log(error);
