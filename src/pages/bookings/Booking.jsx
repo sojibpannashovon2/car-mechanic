@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { authContext } from '../../providers/AuthProvider';
 import BookingRows from './BookingRows';
+import { useNavigate } from 'react-router-dom';
 
 
 const Booking = () => {
@@ -8,7 +9,7 @@ const Booking = () => {
     // console.log(user);
 
     const [bookings, setBookings] = useState([])
-
+    const navigate = useNavigate();
 
     const url = `http://localhost:7000/bookings?email=${user?.email}`
 
@@ -18,12 +19,20 @@ const Booking = () => {
         fetch(url, {
             method: "GET",
             headers: {
-                authorization: `Bearar:  ${localStorage.getItem("jwt-token")}`
+                authorization: `Bearar: ${localStorage.getItem("jwt-token")}`
             }
         })
             .then(res => res.json())
-            .then(data => setBookings(data))
-    }, [url])
+            .then(data => {
+                if (!data.error) {
+                    setBookings(data)
+                }
+                else {
+                    navigate("/login")
+                }
+            })
+
+    }, [url, navigate])
 
     console.log(bookings);
     // const { price, service_id, img, service } = booking
@@ -40,7 +49,7 @@ const Booking = () => {
                     console.log("working", data)
                     if (data.deleteCount > 0) {
                         alert("Deleted successfully")
-                        const remaining = bookings.filter(booking => booking._id !== id);
+                        const remaining = bookings?.filter(booking => booking._id !== id);
                         setBookings(remaining)
                     }
                 }
@@ -61,8 +70,8 @@ const Booking = () => {
             .then(data2 => {
                 console.log(data2);
                 if (data2.modifiedCount > 0) {
-                    const remaining = bookings.filter(pd => pd._id !== Id)
-                    const updated = bookings.find(cd => cd._id === Id)
+                    const remaining = bookings?.filter(pd => pd._id !== Id)
+                    const updated = bookings?.find(cd => cd._id === Id)
                     updated.status = 'confirm'
                     const newBookings = [updated, ...remaining]
                     setBookings(newBookings)
@@ -93,7 +102,7 @@ const Booking = () => {
                 <tbody>
 
                     {
-                        bookings.map(booking => <BookingRows key={booking._id}
+                        bookings?.map(booking => <BookingRows key={booking._id}
                             booking={booking}
                             handleDelete={handleDelete}
                             handleBookingConfirm={handleBookingConfirm}

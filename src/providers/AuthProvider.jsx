@@ -25,6 +25,27 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser)
             console.log('Current User', currentUser);
             setLoading(false)
+            if (currentUser && currentUser.email) {
+                const jwtUser = {
+                    email: currentUser.email,
+                }
+                fetch(`http://localhost:7000/jwt`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(jwtUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("JWT is Running Baby: ", data);
+                        // set in localstorage second best
+                        localStorage.setItem("jwt-token", data.token)
+                    })
+            }
+            else {
+                localStorage.removeItem("jwt-token")
+            }
 
         })
         return () => {
